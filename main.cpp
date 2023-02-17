@@ -18,6 +18,8 @@ class BT {
     void inOrder(Node *rt);
     void preOrder(Node *rt);
     void postOrder(Node *rt);
+    bool find(int val,Node *rt);
+
 public:
     BT(int val);
     void insert(int val);
@@ -30,6 +32,10 @@ public:
     void postOrder() {
         this->postOrder(this->root);
     };
+    bool find(int val){
+       return this->find(val, this->root);
+    };
+
 
 };
 
@@ -84,7 +90,23 @@ void BT::postOrder(Node *rt){
     cout << cur->value << " ";
 }
 
+bool BT::find(int val, Node *rt) {
+    Node* cur = rt;
+    if(cur == nullptr)
+        return false;
+    if(cur->value == val) {
+        return true;
+    }
+    if(val < cur->value)
+        find(val,cur->left);
+    else {
+        find(val,cur->right);
+    }
+}
+
 int main() {
+    freopen("input.txt", "r", stdin);
+    freopen("output.txt", "w", stdout);
     BT myTree(5);
 
     myTree.insert(7);myTree.insert(4);myTree.insert(9);myTree.insert(6);myTree.insert(5);myTree.insert(3);
@@ -95,4 +117,5 @@ int main() {
     myTree.inOrder();
     cout<<"\nPostOrder: ";
     myTree.postOrder();
+    cout << endl << myTree.find(6);
 };
